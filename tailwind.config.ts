@@ -13,7 +13,8 @@ const config: Config = {
       colors: {
         passive: "#9F9F9F",
         primary: "#2563EB",
-        secondary: "#2B9DCE"
+        secondary: "#2B9DCE",
+        dark: "#1A202F"
       }
     }
   },
