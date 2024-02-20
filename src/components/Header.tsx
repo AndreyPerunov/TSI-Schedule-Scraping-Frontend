@@ -3,12 +3,12 @@ import { Split, Wrapper } from "../layouts"
 
 export default function Header() {
   return (
-    <header className="bg-gradient-to-r from-primary to-secondary py-5">
+    <header className="bg-gradient-to-r from-primary to-secondary py-3">
       <Wrapper>
         <Split>
           <div className="flex items-center">
-            <Image className="w-9 h-9 mr-3" src="/logo.png" width={50} height={50} alt="Logo" />
-            <span className="font-bold text-white text-base">TSI Schedule Scraper</span>
+            <Image className="w-9 h-9 mr-3" src="/logo.png" width={40} height={40} alt="Logo" />
+            <span className="font-bold text-white text-sm">TSI Schedule Scraper</span>
           </div>
           <div className="flex items-center">test test</div>
         </Split>
