@@ -9,7 +9,7 @@ export default function Navbar({ links }: { links: ILink[] }) {
     const isActive = pathname.startsWith(link.href)
     return (
       <>
-        <Link key={link.href} href={link.href} className={`hidden md:block text-sm text-white pl-7 active:text-dark hover:underline active ${isActive && "font-bold"}`}>
+        <Link key={link.href} href={link.href} className={`text-sm text-white pl-7 active:text-dark hover:underline active ${isActive && "font-bold"}`}>
           {link.name}
         </Link>
       </>
