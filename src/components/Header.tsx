@@ -19,7 +19,9 @@ export default function Header() {
             <Image className="w-9 h-9 mr-3" src="/logo.png" width={40} height={40} alt="Logo" />
             <span className="font-bold text-white text-sm">TSI Schedule Scraper</span>
           </div>
-          <Navbar links={links} />
+          <div className="flex items-center">
+            <Navbar links={links} />
+          </div>
         </Split>
       </Wrapper>
     </header>
