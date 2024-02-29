@@ -16,7 +16,7 @@ export default function Header() {
       <Wrapper>
         <Split>
           <div className="flex items-center">
-            <Image className="w-9 h-9 mr-3" src="/logo.png" width={40} height={40} alt="Logo" />
+            <Image className="size-9 mr-3" src="/logo.png" width={40} height={40} alt="Logo" />
             <span className="font-bold text-white text-sm">TSI Schedule Scraper</span>
           </div>
           <div className="flex items-center">
