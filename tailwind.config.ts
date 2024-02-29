@@ -15,6 +15,20 @@ const config: Config = {
         primary: "#2563EB",
         secondary: "#2B9DCE",
         dark: "#1A202F"
+      },
+      keyframes: {
+        darkIn: {
+          "0%": { backgroundColor: "rgba(0, 0, 0, 0)" },
+          "100%": { backgroundColor: "rgba(0, 0, 0, 0.5)" }
+        },
+        slideIn: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" }
+        }
+      },
+      animation: {
+        darkIn: "darkIn 0.2s ease-in-out",
+        slideIn: "slideIn 0.2s ease-in-out"
       }
     }
   },

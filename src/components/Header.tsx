@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Split, Wrapper } from "../layouts"
-import { Navbar } from "./index"
+import { Navbar, MobileNavbar } from "./index"
 import type { ILink } from "../types"
 
 const links: ILink[] = [
@@ -20,7 +20,8 @@ export default function Header() {
             <span className="font-bold text-white text-sm">TSI Schedule Scraper</span>
           </div>
           <div className="flex items-center">
-            <Navbar links={links} />
+            <Navbar links={links} className="hidden md:block" />
+            <MobileNavbar links={links} className="block md:hidden" />
           </div>
         </Split>
       </Wrapper>
