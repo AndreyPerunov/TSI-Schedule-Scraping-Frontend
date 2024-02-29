@@ -2,6 +2,7 @@
 import type { ILink } from "../types"
 import { ModalSidebar } from "../layouts"
 import { useState } from "react"
+import Link from "next/link"
 
 export default function MobileNavbar({ links, className, ...props }: { links: ILink[]; className?: string }) {
   const [open, setOpen] = useState(false)
@@ -13,7 +14,19 @@ export default function MobileNavbar({ links, className, ...props }: { links: IL
         <div className="w-7 h-1 rounded bg-white mb-1"></div>
         <div className="w-7 h-1 rounded bg-white"></div>
       </div>
-      {open && <ModalSidebar onClose={() => setOpen(false)}>test</ModalSidebar>}
+      {open && (
+        <ModalSidebar onClose={() => setOpen(false)}>
+          <div className="divide-y-2 divide-white flex flex-col">
+            {links.map(link => {
+              return (
+                <Link key={link.href} href={link.href} className="py-5 w-full text-center text-lg font-semibold text-white active:text-dark hover:underline active">
+                  {link.name}
+                </Link>
+              )
+            })}
+          </div>
+        </ModalSidebar>
+      )}
     </div>
   )
 }
