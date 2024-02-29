@@ -25,7 +25,7 @@ export default function ModalSidebar({ children, onClose }: { children: React.Re
 
   return (
     <div className={`${closing && "bg-transparent  duration-200 ease-in-out"} animate-darkIn fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black/50`} onClick={handleClose}>
-      <div className={`${closing && "translate-x-full duration-200 ease-in-out"} animate-slideIn absolute z-20 top-0 right-0 bg-primary w-1/2 h-full p-5`} onClick={e => e.stopPropagation()}>
+      <div className={`${closing && "translate-x-full duration-200 ease-in-out"} animate-slideIn absolute z-20 top-0 right-0 bg-primary w-3/4 h-full p-5`} onClick={e => e.stopPropagation()}>
         <div className="relative w-7 h-7 flex items-center justify-center" onClick={handleClose}>
           <div className={`${closing && "rotate-0 duration-100 ease-in-out"} w-7 h-1 rounded bg-white absolute origin-center rotate-[45deg]`}></div>
           <div className={`${closing && "rotate-0 duration-100 ease-in-out"} w-7 h-1 rounded bg-white absolute origin-center rotate-[-45deg]`}></div>

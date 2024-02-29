@@ -26,6 +26,10 @@ html {
 
 body {
   margin: 0;
+  /* For the Safari on mobile */
+  /* background-color: #2563eb; */
+  background-color: #2880dc;
+  /* background-color: #2b9dce; */
 }
 
 /**
