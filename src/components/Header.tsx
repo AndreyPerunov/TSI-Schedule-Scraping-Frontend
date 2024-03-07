@@ -17,10 +17,10 @@ export default function Header() {
         <Split>
           <div className="flex items-center">
             <Image className="size-9 mr-3" src="/logo.png" width={40} height={40} alt="Logo" />
-            <span className="font-bold text-white text-sm">TSI Schedule Scraper</span>
+            <span className="font-bold text-white text-sm truncate">TSI Schedule Scraper</span>
           </div>
           <div className="flex items-center">
-            <Navbar links={links} className="hidden md:block" />
+            <Navbar links={links} className="hidden md:flex" />
             <MobileNavbar links={links} className="block md:hidden" />
           </div>
         </Split>
@@ -28,5 +28,3 @@ export default function Header() {
     </header>
   )
 }
-
-//
