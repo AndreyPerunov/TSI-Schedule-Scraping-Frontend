@@ -4,6 +4,7 @@ import { ModalSidebar } from "../layouts"
 import { useState } from "react"
 import Link from "next/link"
 import { FaExternalLinkAlt } from "react-icons/fa"
+import LinkButton from "./LinkButton"
 
 export default function MobileNavbar({ links, className, ...props }: { links: ILink[]; className?: string }) {
   const [open, setOpen] = useState(false)
@@ -17,6 +18,14 @@ export default function MobileNavbar({ links, className, ...props }: { links: IL
       </div>
       {open && (
         <ModalSidebar onClose={() => setOpen(false)}>
+          <div className="flex flex-col">
+            <LinkButton href="/login" className="mb-4 mt-4" hollow={true}>
+              Sign In
+            </LinkButton>
+            <LinkButton href="/login" className="mb-4">
+              Get Started
+            </LinkButton>
+          </div>
           <div className="divide-y-2 divide-white flex flex-col">
             {links.map(link => {
               return (

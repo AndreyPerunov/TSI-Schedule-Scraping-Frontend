@@ -17,8 +17,8 @@ export default function Navbar({ links, className, ...props }: { links: ILink[];
         )
       })}
       <HeaderButton href={["/login", "/signup"]}>
-        <span>Log In</span>
-        <span>Sign Up</span>
+        <span>Sign In</span>
+        <span>Get Started</span>
       </HeaderButton>
     </nav>
   )
