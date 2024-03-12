@@ -14,7 +14,29 @@
 
 html {
   line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  scroll-behavior: smooth;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e1e6f2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1a202f;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0a101f;
+  border-radius: 10px;
 }
 
 /* Sections
@@ -26,10 +48,6 @@ html {
 
 body {
   margin: 0;
-  /* For the Safari on mobile */
-  /* background-color: #2563eb; */
-  background-color: #2880dc;
-  /* background-color: #2b9dce; */
 }
 
 /**
