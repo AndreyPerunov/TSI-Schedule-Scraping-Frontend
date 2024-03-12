@@ -22,7 +22,7 @@ export default function MobileNavbar({ links, className, ...props }: { links: IL
             <LinkButton href="/login" className="mb-4 mt-4" hollow={true}>
               Sign In
             </LinkButton>
-            <LinkButton href="/login" className="mb-4">
+            <LinkButton href="/signup" className="mb-4">
               Get Started
             </LinkButton>
           </div>
