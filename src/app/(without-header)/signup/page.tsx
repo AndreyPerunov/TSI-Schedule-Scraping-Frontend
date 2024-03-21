@@ -2,9 +2,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button, Select, Switch } from "@/ui"
-import { useMultistep } from "@/hooks"
-import { useState } from "react"
+import { useMultistep, useResource } from "@/hooks"
+import { useEffect, useState } from "react"
 import { getGoogleOAuthUrl } from "@/utils"
+import { Group, Lecturer } from "@/types"
 
 type LoginData = {
   email: string
@@ -65,33 +66,24 @@ function StepOne({ next, updateFields }: { next?: () => void; updateFields: (fie
   )
 }
 
-function StepTwo({ next, role, updateFields }: { next?: () => void; role: "student" | "teacher"; updateFields: (fields: { name: string; group: string }) => void }) {
-  const groups = ["4203bda", "4204bda", "4206bda", "4207bda", "4208bda", "4208bda", "4208bda", "4208bda", "4208bda", "4208bda"]
-  const [group, setGroup] = useState("")
+function StepTwo({ next, role, updateFields }: { next?: () => void; role: "student" | "teacher"; updateFields: (fields: { name?: string; group?: string }) => void }) {
   if (role.toLowerCase() === "student") {
     return (
-      <>
-        <Image src="/student.png" width={300} height={300} priority={true} alt="Picture of a student" className="w-20" />
-        <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your group?</h1>
-        <Select list={groups} selected={group} select={setGroup} className="mt-10 uppercase" />
-        {next && (
-          <Button onClick={next} className="mt-10">
-            Next
-          </Button>
-        )}
-      </>
+      <IfStudent
+        next={next}
+        updateGroup={newGroup => {
+          updateFields({ group: newGroup })
+        }}
+      />
     )
   } else if (role.toLowerCase() === "teacher") {
     return (
-      <>
-        <Image src="/teacher.png" width={300} height={300} priority={true} alt="Picture of a teacher" className="w-20" />
-        <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your name?</h1>
-        {next && (
-          <Button onClick={next} className="mt-10">
-            Next
-          </Button>
-        )}
-      </>
+      <IfTeacher
+        next={next}
+        updateName={newName => {
+          updateFields({ name: newName })
+        }}
+      />
     )
   } else {
     return (
@@ -101,6 +93,50 @@ function StepTwo({ next, role, updateFields }: { next?: () => void; role: "stude
       </h1>
     )
   }
+}
+
+function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name: string) => void }) {
+  const lecturers: Lecturer[] = useResource("/api/lecturers")
+  const [name, setName] = useState("select")
+
+  useEffect(() => {
+    updateName(name)
+  }, [name])
+
+  return (
+    <>
+      <Image src="/teacher.png" width={300} height={300} priority={true} alt="Picture of a teacher" className="w-20" />
+      <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your name?</h1>
+      {lecturers ? <Select list={lecturers.map(lecturer => lecturer.lecturerName)} selected={name} select={setName} className="mt-10 capitalize" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between rounded-lg">Loading...</div>}
+      {next && (
+        <Button onClick={next} className="mt-10">
+          Next
+        </Button>
+      )}
+    </>
+  )
+}
+
+function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (group: string) => void }) {
+  const groups: Group[] = useResource("/api/groups")
+  const [group, setGroup] = useState("select")
+
+  useEffect(() => {
+    updateGroup(group)
+  }, [group])
+
+  return (
+    <>
+      <Image src="/student.png" width={300} height={300} priority={true} alt="Picture of a student" className="w-20" />
+      <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your group?</h1>
+      {groups ? <Select list={groups.map(group => group.groupName)} selected={group} select={setGroup} className="mt-10 uppercase" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between rounded-lg">Loading...</div>}
+      {next && (
+        <Button onClick={next} className="mt-10">
+          Next
+        </Button>
+      )}
+    </>
+  )
 }
 
 function StepThree({ next, updateFields }: { next?: () => void; updateFields: (fields: { email: string }) => void }) {
