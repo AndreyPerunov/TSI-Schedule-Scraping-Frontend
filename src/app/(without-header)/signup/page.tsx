@@ -45,7 +45,7 @@ export default function SignUp() {
   )
 }
 
-function StepOne({ next, role, updateFields }: { next?: () => void; role: "student" | "teacher"; updateFields: (fields: { role: "student" | "teacher" }) => void }) {
+function StepOne({ next, updateFields }: { next?: () => void; updateFields: (fields: { role: "student" | "teacher" }) => void }) {
   return (
     <>
       <Image src="/student-teacher.png" width={300} height={300} priority={true} alt="Picture: Student or Teacher?" className="w-56" />
