@@ -58,9 +58,9 @@ function ListBox({ list, selected, select }: { list: string[]; selected: string;
     }
   }
   return (
-    <div className="absolute bg-white w-[calc(100%+4px)] rounded-b-lg border border-primary top-full left-[-2px] max-h-48 overflow-y-scroll scroll-smooth scrollbar-br-rounded" ref={listBox}>
+    <div className="absolute bg-white w-[calc(100%+4px)] rounded-b-lg border border-primary top-full left-[-2px] max-h-48 overflow-y-scroll overflow-x-hidden scroll-smooth scrollbar-br-rounded" ref={listBox}>
       {filteredList.map((item, index) => (
-        <div key={index} className="px-6 py-3.5 font-semibold flex justify-between items-center select-none cursor-pointer hover:bg-primary hover:text-white" tabIndex={0} onClick={() => select(item)} onKeyDown={e => handleItemKeyPress(e, item)} aria-selected={item == selected}>
+        <div key={index} className="px-6 py-3.5 text-nowrap font-semibold flex justify-between items-center select-none cursor-pointer hover:bg-primary hover:text-white" tabIndex={0} onClick={() => select(item)} onKeyDown={e => handleItemKeyPress(e, item)} aria-selected={item == selected}>
           <span>{item}</span>
           <span className="ml-5 translate-y-[-1px]"> {selected == item && <IoMdCheckmark size={15} />}</span>
         </div>
