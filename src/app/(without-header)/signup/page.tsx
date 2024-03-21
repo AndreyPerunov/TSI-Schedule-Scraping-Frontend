@@ -107,7 +107,7 @@ function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name:
     <>
       <Image src="/teacher.png" width={300} height={300} priority={true} alt="Picture of a teacher" className="w-20" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your name?</h1>
-      {lecturers ? <Select list={lecturers.map(lecturer => lecturer.lecturerName)} selected={name} select={setName} className="mt-10 capitalize" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between rounded-lg">Loading...</div>}
+      {lecturers ? <Select list={lecturers.map(lecturer => lecturer.lecturerName)} selected={name} select={setName} className="mt-10 capitalize" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
       {next && (
         <Button onClick={next} className="mt-10">
           Next
@@ -129,7 +129,7 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
     <>
       <Image src="/student.png" width={300} height={300} priority={true} alt="Picture of a student" className="w-20" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your group?</h1>
-      {groups ? <Select list={groups.map(group => group.groupName)} selected={group} select={setGroup} className="mt-10 uppercase" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between rounded-lg">Loading...</div>}
+      {groups ? <Select list={groups.map(group => group.groupName)} selected={group} select={setGroup} className="mt-10 uppercase" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
       {next && (
         <Button onClick={next} className="mt-10">
           Next
