@@ -17,6 +17,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.scrollbar-br-rounded::-webkit-scrollbar-track {
+  border-radius: 0 0 10px 0;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

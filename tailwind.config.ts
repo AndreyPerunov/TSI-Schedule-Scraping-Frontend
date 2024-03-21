@@ -12,6 +12,7 @@ const config: Config = {
     extend: {
       colors: {
         passive: "#9F9F9F",
+        "passive-light": "#D9D9D9",
         primary: "#2563EB",
         secondary: "#2B9DCE",
         dark: "#1A202F"
