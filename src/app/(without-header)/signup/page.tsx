@@ -56,7 +56,6 @@ function StepOne({ next, role, updateFields }: { next?: () => void; role: "stude
           updateFields({ role: option as "student" | "teacher" })
         }}
       />
-      {role}
       {next && (
         <Button onClick={next} className="mt-10">
           Next
