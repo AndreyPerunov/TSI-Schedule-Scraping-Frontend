@@ -5,8 +5,6 @@ export default function useMultistep(steps: ReactElement[]) {
   const [stepIndex, setStepIndex] = useState(0)
 
   function next() {
-    console.log("next")
-
     setStepIndex(prev => {
       if (prev >= steps.length - 1) return prev
       return prev + 1
