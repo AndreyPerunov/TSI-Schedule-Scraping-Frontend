@@ -96,7 +96,7 @@ function StepTwo({ next, role, updateFields }: { next?: () => void; role: "stude
 }
 
 function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name: string) => void }) {
-  const lecturers: Lecturer[] = useResource("/api/lecturers")
+  const [lecturers, error]: [lecturers: Lecturer[], error: string | any] = useResource("/api/lecturers")
   const [name, setName] = useState("select")
 
   useEffect(() => {
@@ -108,6 +108,7 @@ function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name:
       <Image src="/teacher.png" width={300} height={300} priority={true} alt="Picture of a teacher" className="w-20" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your name?</h1>
       {lecturers ? <Select list={lecturers.map(lecturer => lecturer.lecturerName)} selected={name} select={setName} className="mt-10 capitalize" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
+      {error && <p className="mt-2 text-red-500 text-sm font-semibold">Failed to fetch lecturers names. Try again later.</p>}
       {next && (
         <Button onClick={next} className="mt-10">
           Next
@@ -118,7 +119,7 @@ function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name:
 }
 
 function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (group: string) => void }) {
-  const groups: Group[] = useResource("/api/groups")
+  const [groups, error]: [groups: Group[], error: any | string] = useResource("/api/groups")
   const [group, setGroup] = useState("select")
 
   useEffect(() => {
@@ -130,6 +131,7 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
       <Image src="/student.png" width={300} height={300} priority={true} alt="Picture of a student" className="w-20" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">What is your group?</h1>
       {groups ? <Select list={groups.map(group => group.groupName)} selected={group} select={setGroup} className="mt-10 uppercase" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
+      {error && <p className="mt-2 text-red-500 text-sm font-semibold">Failed to fetch groups. Try again later.</p>}
       {next && (
         <Button onClick={next} className="mt-10">
           Next
