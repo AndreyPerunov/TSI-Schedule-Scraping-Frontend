@@ -25,11 +25,16 @@ const config: Config = {
         slideIn: {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" }
+        },
+        fadeOut: {
+          "0%": { opacity: "0.9" },
+          "100%": { opacity: "0", filter: "blur(24px)" }
         }
       },
       animation: {
         darkIn: "darkIn 0.2s ease-in-out",
-        slideIn: "slideIn 0.2s ease-in-out"
+        slideIn: "slideIn 0.2s ease-in-out",
+        fadeOut: "fadeOut 0.8s ease-in-out forwards"
       }
     }
   },
