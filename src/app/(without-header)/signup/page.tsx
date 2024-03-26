@@ -25,7 +25,7 @@ export default function SignUp() {
   const [data, setData] = useState(INITIAL_DATA)
   const updateFields = (fields: Partial<LoginData>) => setData(prev => ({ ...prev, ...fields }))
 
-  const { steps, step, stepIndex } = useMultistep([<StepOne key="1" {...data} updateFields={updateFields} />, <StepTwo key="2" {...data} updateFields={updateFields} />, <StepThree key="3" {...data} updateFields={updateFields} />])
+  const { steps, step, stepIndex } = useMultistep([<Preview key={0} {...data} />, <StepOne key="1" {...data} updateFields={updateFields} />, <StepTwo key="2" {...data} updateFields={updateFields} />, <StepThree key="3" {...data} updateFields={updateFields} />])
 
   return (
     <main className="bg-gradient-to-r from-primary to-secondary h-full min-h-screen flex justify-center items-start">
@@ -43,6 +43,27 @@ export default function SignUp() {
         </div>
       </div>
     </main>
+  )
+}
+
+function Preview({ next }: { next?: () => void }) {
+  return (
+    <>
+      <Image src="/logo.png" width={300} height={300} priority={true} alt="Logo" className="w-28" />
+      <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">Let&apos;s Get Started!</h1>
+      <p className="mt-2 text-passive font-semibold text-center">Manage your time in one place.</p>
+      <p className="mt-10 text-passive font-semibold text-sm">
+        Already have an account?{" "}
+        <Link href="/login" className="text-primary hover:underline active:text-dark">
+          Log in.
+        </Link>
+      </p>
+      {next && (
+        <Button onClick={next} className="mt-2">
+          Next
+        </Button>
+      )}
+    </>
   )
 }
 
@@ -152,11 +173,8 @@ function StepThree({ next, updateFields }: { next?: () => void; updateFields: (f
     <>
       <Image src="/Scraper&GoogleCalendar.png" width={300} height={300} priority={true} alt="Picture of TSI Web Scraper and Google Calendar connection" className="w-56" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">Connect to Google Calendar</h1>
-      <p className="mt-2 text-passive font-semibold">
-        Already have an account?{" "}
-        <Link href="/login" className="text-primary hover:underline active:text-dark">
-          Log in.
-        </Link>
+      <p className="mt-2 text-passive font-semibold text-center">
+        Get your schedule in <span className="font-bold">one click</span>!
       </p>
       {next && (
         <Button onClick={handleClick} className="mt-10" hollow={true} icon={<Image src="/google-icon.svg" width={20} height={20} priority={true} alt="Google Icon" className="inline-block translate-x-[-8px] size-auto" />}>
