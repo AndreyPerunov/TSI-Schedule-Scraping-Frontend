@@ -22,4 +22,16 @@ type Group = {
   users: number
 }
 
-export type { ILink, Lecturer, Group }
+type User = {
+  isAuth: boolean
+  googleEmail: string
+  googleName: string
+  googlePicture: string
+  role: string
+  group: string
+  name: string
+  accessToken: string
+  refreshToken: string
+}
+
+export type { ILink, Lecturer, Group, User }

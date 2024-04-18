@@ -8,14 +8,12 @@ import { getGoogleOAuthUrl } from "@/utils"
 import { Group, Lecturer } from "@/types"
 
 type LoginData = {
-  email: string
   role: "student" | "teacher"
   group: string
   name: string
 }
 
 const INITIAL_DATA: LoginData = {
-  email: "",
   role: "student",
   name: "",
   group: ""
@@ -25,7 +23,7 @@ export default function SignUp() {
   const [data, setData] = useState(INITIAL_DATA)
   const updateFields = (fields: Partial<LoginData>) => setData(prev => ({ ...prev, ...fields }))
 
-  const { steps, step, stepIndex } = useMultistep([<Preview key={0} {...data} />, <StepOne key="1" {...data} updateFields={updateFields} />, <StepTwo key="2" {...data} updateFields={updateFields} />, <StepThree key="3" {...data} updateFields={updateFields} />])
+  const { steps, step, stepIndex } = useMultistep([<Preview key={0} {...data} />, <StepOne key="1" {...data} updateFields={updateFields} />, <StepTwo key="2" {...data} updateFields={updateFields} />, <StepThree key="3" {...data} />])
 
   return (
     <main className="bg-gradient-to-r from-primary to-secondary h-full min-h-screen flex justify-center items-start">
@@ -162,9 +160,9 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
   )
 }
 
-function StepThree({ next, updateFields }: { next?: () => void; updateFields: (fields: { email: string }) => void }) {
+function StepThree({ next, role, name, group }: { next?: () => void; role: "student" | "teacher"; name: string; group: string }) {
   const handleClick = () => {
-    window.location.href = getGoogleOAuthUrl()
+    window.location.href = getGoogleOAuthUrl({ role, group, name })
     setTimeout(() => {
       // next && next()
     }, 1000)
