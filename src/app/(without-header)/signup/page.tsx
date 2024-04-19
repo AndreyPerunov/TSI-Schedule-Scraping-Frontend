@@ -129,7 +129,7 @@ function IfTeacher({ next, updateName }: { next?: () => void; updateName: (name:
       {lecturers ? <Select list={lecturers.map(lecturer => lecturer.lecturerName)} selected={name} select={setName} className="mt-10 capitalize" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
       {error && <p className="mt-2 text-red-500 text-sm font-semibold">Failed to fetch lecturers names. Try again later.</p>}
       {next && (
-        <Button onClick={next} className="mt-10">
+        <Button onClick={next} className="mt-10" disabled={name === "select"}>
           Next
         </Button>
       )}
@@ -152,7 +152,7 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
       {groups ? <Select list={groups.map(group => group.groupName)} selected={group} select={setGroup} className="mt-10 uppercase" /> : <div className="mt-10 px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-wait justify-between rounded-lg">Loading...</div>}
       {error && <p className="mt-2 text-red-500 text-sm font-semibold">Failed to fetch groups. Try again later.</p>}
       {next && (
-        <Button onClick={next} className="mt-10">
+        <Button onClick={next} className="mt-10" disabled={group === "select"}>
           Next
         </Button>
       )}

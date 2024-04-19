@@ -88,7 +88,7 @@ function ListBox({ list, selected, select }: { list: string[]; selected: string;
   return (
     <>
       <div className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 text-slate-300 font-bold text-8xl cursor-default text-nowrap transition-all duration-[2500ms] ease-in ${!searchQueryIsVisible && "animate-fadeOut"} opacity-90`}>{searchQuery}</div>
-      <div className="absolute bg-white w-[calc(100%+4px)] rounded-b-lg border border-primary top-full left-[-2px] max-h-48 overflow-y-scroll overflow-x-hidden scroll-smooth scrollbar-br-rounded" ref={listBox}>
+      <div className="absolute bg-white w-[calc(100%+4px)] rounded-b-lg border border-primary top-full left-[-2px] max-h-48 overflow-y-scroll overflow-x-hidden scroll-smooth scrollbar-br-rounded z-10" ref={listBox}>
         {filteredList.length === 0 && (
           <>
             <div className="px-6 py-3.5 text-nowrap font-semibold select-none cursor-not-allowed">No Results</div>
