@@ -5,9 +5,11 @@ import { useState } from "react"
 import Link from "next/link"
 import { FaExternalLinkAlt } from "react-icons/fa"
 import LinkButton from "./LinkButton"
+import { useAppSelector } from "@/hooks"
 
 export default function MobileNavbar({ links, className, ...props }: { links: ILink[]; className?: string }) {
   const [open, setOpen] = useState(false)
+  const { isAuth } = useAppSelector(state => state.authReducer)
 
   return (
     <div className={`${className}`} {...props} onClick={() => setOpen(true)}>
@@ -19,12 +21,25 @@ export default function MobileNavbar({ links, className, ...props }: { links: IL
       {open && (
         <ModalSidebar onClose={() => setOpen(false)}>
           <div className="flex flex-col">
-            <LinkButton href="/login" className="mb-4 mt-4" hollow={true}>
-              Sign In
-            </LinkButton>
-            <LinkButton href="/signup" className="mb-4">
-              Get Started
-            </LinkButton>
+            {isAuth ? (
+              <>
+                <LinkButton href="/logout" className="mb-4 mt-4" hollow={true}>
+                  Log Out
+                </LinkButton>
+                <LinkButton href="/dashboard" className="mb-4">
+                  Dashboard
+                </LinkButton>
+              </>
+            ) : (
+              <>
+                <LinkButton href="/login" className="mb-4 mt-4" hollow={true}>
+                  Sign In
+                </LinkButton>
+                <LinkButton href="/signup" className="mb-4">
+                  Get Started
+                </LinkButton>
+              </>
+            )}
           </div>
           <div className="divide-y-2 divide-white flex flex-col">
             {links.map(link => {
