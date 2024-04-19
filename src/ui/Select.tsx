@@ -1,3 +1,4 @@
+"use client"
 import { IoIosArrowDown, IoIosArrowUp, IoMdCheckmark } from "react-icons/io"
 import { useEffect, useState, useRef } from "react"
 
