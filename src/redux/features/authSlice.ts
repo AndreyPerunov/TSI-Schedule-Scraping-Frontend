@@ -12,32 +12,32 @@ type AuthState = {
   refreshToken: string
 }
 
-const googleEmail = localStorage.getItem("googleEmail")
-const googleName = localStorage.getItem("googleName")
-const googlePicture = localStorage.getItem("googlePicture")
-const role = localStorage.getItem("role")
-const group = localStorage.getItem("group")
-const name = localStorage.getItem("name")
-const accessToken = localStorage.getItem("accessToken")
-const refreshToken = localStorage.getItem("refreshToken")
+const googleEmail = localStorage.getItem("googleEmail") || ""
+const googleName = localStorage.getItem("googleName") || ""
+const googlePicture = localStorage.getItem("googlePicture") || ""
+const role = localStorage.getItem("role") || ""
+const group = localStorage.getItem("group") || ""
+const name = localStorage.getItem("name") || ""
+const accessToken = localStorage.getItem("accessToken") || ""
+const refreshToken = localStorage.getItem("refreshToken") || ""
 
 const initialState: AuthState = {
   isAuth: !!accessToken,
-  googleEmail: googleEmail || "",
-  googleName: googleName || "",
-  googlePicture: googlePicture || "",
-  role: role || "",
-  group: group || "",
-  name: name || "",
-  accessToken: accessToken || "",
-  refreshToken: refreshToken || ""
+  googleEmail: googleEmail,
+  googleName: googleName,
+  googlePicture: googlePicture,
+  role: role,
+  group: group,
+  name: name,
+  accessToken: accessToken,
+  refreshToken: refreshToken
 }
 
 export const auth = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: () => {
+    logout: state => {
       // Removing user from local storage
       localStorage.removeItem("googleEmail")
       localStorage.removeItem("googleName")
@@ -47,8 +47,16 @@ export const auth = createSlice({
       localStorage.removeItem("name")
       localStorage.removeItem("accessToken")
       localStorage.removeItem("refreshToken")
-      // Removing user from state
-      return initialState
+      // Reset state
+      state.isAuth = false
+      state.googleEmail = ""
+      state.googleName = ""
+      state.googlePicture = ""
+      state.role = ""
+      state.group = ""
+      state.name = ""
+      state.accessToken = ""
+      state.refreshToken = ""
     },
     login: (state, action: PayloadAction<AuthState>) => {
       // Saving user to local storage
