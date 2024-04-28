@@ -29,12 +29,17 @@ const config: Config = {
         fadeOut: {
           "0%": { opacity: "0.9" },
           "100%": { opacity: "0", filter: "blur(24px)" }
+        },
+        fromBottomToTop: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-100%)" }
         }
       },
       animation: {
         darkIn: "darkIn 0.2s ease-in-out",
         slideIn: "slideIn 0.2s ease-in-out",
-        fadeOut: "fadeOut 0.8s ease-in-out forwards"
+        fadeOut: "fadeOut 0.8s ease-in-out forwards",
+        fromBottomToTop: "fromBottomToTop 1.5s ease-in-out forwards"
       }
     }
   },

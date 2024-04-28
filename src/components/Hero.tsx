@@ -5,7 +5,7 @@ import HeroButton from "./HeroButton"
 const Hero: FC = () => {
   return (
     <div className="bg-gradient-to-r from-primary to-secondary m-0 shadow-xl shadow-slate-400">
-      <Wrapper className="pt-28 pb-40">
+      <Wrapper className="pt-24 pb-32">
         <div className="flex justify-between flex-col-reverse md:flex-row">
           <div className="md:w-3/4">
             <h1 className="m-0 text-white text-5xl md:text-6xl font-semibold text-center md:text-start">TSI Schedule Scrapper</h1>
