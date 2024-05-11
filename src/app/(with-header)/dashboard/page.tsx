@@ -1,7 +1,7 @@
 "use client"
 
 import { Lecture } from "@/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import { useAppSelector } from "@/hooks"
 import { Heading, Button } from "@/ui"
@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [state, setState] = useState<"Ready to scrape" | "Ready to copy" | "Success">("Ready to scrape")
   const { group, name, role } = useAppSelector(state => state.authReducer)
   const [days, setDays] = useState<number>(30)
+  const [calendarName, setCalendarName] = useState<string>("TSI Schedule Scraper")
   const [lectures, setLectures] = useState<(Lecture & { color: string })[]>([] as (Lecture & { color: string })[])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
@@ -63,6 +64,7 @@ export default function Dashboard() {
       .post("/api/schedule", {
         access_token: user.accessToken,
         days: 30,
+        calendar_name: calendarName.trim(),
         lectures: lectures.map((lecture, index) => {
           return {
             title: lecture.subject,
@@ -115,6 +117,7 @@ groups: ${lecture.groups.join(", ")}`,
                 <Button className="mt-2 px-9" onClick={scrapeHandler} loading={lectures.length === 0 && loading}>
                   Scrape
                 </Button>
+                <p className="font-semibold text-passive mt-2 text-xs">*Scraping may take a while, please be patient</p>
               </>
             )}
             {state === "Ready to copy" && (
@@ -134,13 +137,23 @@ groups: ${lecture.groups.join(", ")}`,
                 <p className="font-semibold text-xl text-primary mt-2">{days} days</p>
                 <p className="font-semibold text-xl text-passive mt-4">Lectures:</p>
                 <p className="font-semibold text-xl text-primary mt-2">{lectures.length} lectures were scraped</p>
+                <p className="font-semibold text-xl text-passive mt-4">Calendar name:</p>
                 <p className="font-semibold text-xl text-passive mt-4">Step 2:</p>
-                <Button className="mt-2 px-9" onClick={copyHandler} loading={loading}>
+                <Button className="mt-2 px-9" onClick={copyHandler} loading={loading} disabled={calendarName.length < 1}>
                   Copy
                 </Button>
+                <p className="font-semibold text-passive mt-2 text-xs">
+                  *We will delete all events from calendar{" "}
+                  <span className="font-bold">
+                    {'"'}
+                    {calendarName}
+                    {'"'}
+                  </span>{" "}
+                  for next <span className="font-bold">{days} days</span> and replace them with new events
+                </p>
               </>
             )}
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+
             {state === "Success" && (
               <>
                 <p className="font-semibold text-xl text-passive mt-4">All Done!</p>
@@ -151,12 +164,7 @@ groups: ${lecture.groups.join(", ")}`,
                 </Button>
               </>
             )}
-            <p className="mt-4 text-passive font-semibold">Steps:</p>
-            <ol className="list-decimal list-inside">
-              <li className="text-passive mt-1">Scrape your schedule</li>
-              <li className="text-passive mt-1">Copy your schedule to Google Calendar</li>
-              <li className="text-passive mt-1">Enjoy</li>
-            </ol>
+            {error && <p className="font-semibold text-red-500 mt-2 text-xs">*{error}</p>}
           </div>
           <Calendar days={days} isLoading={loading} lectures={lectures} className="mb-8 md:mb-0" />
         </div>
@@ -164,3 +172,45 @@ groups: ${lecture.groups.join(", ")}`,
     </main>
   )
 }
+
+/*
+ calendar: {
+    '1': { background: '#ac725e', foreground: '#1d1d1d' },
+    '2': { background: '#d06b64', foreground: '#1d1d1d' },
+    '3': { background: '#f83a22', foreground: '#1d1d1d' },
+    '4': { background: '#fa573c', foreground: '#1d1d1d' },
+    '5': { background: '#ff7537', foreground: '#1d1d1d' },
+    '6': { background: '#ffad46', foreground: '#1d1d1d' },
+    '7': { background: '#42d692', foreground: '#1d1d1d' },
+    '8': { background: '#16a765', foreground: '#1d1d1d' },
+    '9': { background: '#7bd148', foreground: '#1d1d1d' },
+    '10': { background: '#b3dc6c', foreground: '#1d1d1d' },
+    '11': { background: '#fbe983', foreground: '#1d1d1d' },
+    '12': { background: '#fad165', foreground: '#1d1d1d' },
+    '13': { background: '#92e1c0', foreground: '#1d1d1d' },
+    '14': { background: '#9fe1e7', foreground: '#1d1d1d' },
+    '15': { background: '#9fc6e7', foreground: '#1d1d1d' },
+    '16': { background: '#4986e7', foreground: '#1d1d1d' },
+    '17': { background: '#9a9cff', foreground: '#1d1d1d' },
+    '18': { background: '#b99aff', foreground: '#1d1d1d' },
+    '19': { background: '#c2c2c2', foreground: '#1d1d1d' },
+    '20': { background: '#cabdbf', foreground: '#1d1d1d' },
+    '21': { background: '#cca6ac', foreground: '#1d1d1d' },
+    '22': { background: '#f691b2', foreground: '#1d1d1d' },
+    '23': { background: '#cd74e6', foreground: '#1d1d1d' },
+    '24': { background: '#a47ae2', foreground: '#1d1d1d' }
+  },
+  event: {
+    '1': { background: '#a4bdfc', foreground: '#1d1d1d' },
+    '2': { background: '#7ae7bf', foreground: '#1d1d1d' },
+    '3': { background: '#dbadff', foreground: '#1d1d1d' },
+    '4': { background: '#ff887c', foreground: '#1d1d1d' },
+    '5': { background: '#fbd75b', foreground: '#1d1d1d' },
+    '6': { background: '#ffb878', foreground: '#1d1d1d' },
+    '7': { background: '#46d6db', foreground: '#1d1d1d' },
+    '8': { background: '#e1e1e1', foreground: '#1d1d1d' },
+    '9': { background: '#5484ed', foreground: '#1d1d1d' },
+    '10': { background: '#51b749', foreground: '#1d1d1d' },
+    '11': { background: '#dc2127', foreground: '#1d1d1d' }
+  }
+*/
