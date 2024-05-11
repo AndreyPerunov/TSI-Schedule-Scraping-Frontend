@@ -5,7 +5,7 @@ type AuthState = {
   googleEmail: string
   googleName: string
   googlePicture: string
-  role: string
+  role: "student" | "teacher" | ""
   group: string
   name: string
   accessToken: string
@@ -26,7 +26,7 @@ const initialState: AuthState = {
   googleEmail: googleEmail || "",
   googleName: googleName || "",
   googlePicture: googlePicture || "",
-  role: role || "",
+  role: (role || "") as "student" | "teacher" | "",
   group: group || "",
   name: name || "",
   accessToken: accessToken || "",

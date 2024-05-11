@@ -34,4 +34,16 @@ type User = {
   refreshToken: string
 }
 
-export type { ILink, Lecturer, Group, User }
+type Lecture = {
+  lectureNumber: number
+  start: string
+  end: string
+  room: string
+  groups: string[]
+  lecturer: string
+  subject: string
+  typeOfTheClass: string
+  comment: string
+}
+
+export type { ILink, Lecturer, Group, User, Lecture }
