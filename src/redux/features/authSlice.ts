@@ -1,4 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import axios from "axios"
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_ENDPOINT
+axios.defaults.withCredentials = true
 
 type AuthState = {
   isAuth: boolean
@@ -24,24 +27,29 @@ const initialState: AuthState = {
   exp: 0
 }
 
+export const fetchUserData = createAsyncThunk("auth/fetchUserData", async () => {
+  try {
+    const response = await axios.get<AuthState>("/api/user")
+    return response.data
+  } catch (error) {
+    throw error
+  }
+})
+
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
+  try {
+    await axios.get("/api/user/logout")
+  } catch (error) {
+    throw error
+  }
+})
+
 export const auth = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: state => {
-      // Reset state
-      state.isAuth = false
-      state.googleEmail = ""
-      state.googleName = ""
-      state.googlePicture = ""
-      state.role = ""
-      state.group = ""
-      state.name = ""
-      state.iat = 0
-      state.exp = 0
-    },
-    login: (state, action: PayloadAction<AuthState>) => {
-      // Updating state
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(fetchUserData.fulfilled, (state, action) => {
       state.isAuth = true
       state.googleEmail = action.payload.googleEmail
       state.googleName = action.payload.googleName
@@ -51,9 +59,17 @@ export const auth = createSlice({
       state.name = action.payload.name
       state.iat = action.payload.iat
       state.exp = action.payload.exp
-    }
+    }),
+      builder.addCase(fetchUserData.rejected, state => {
+        Object.assign(state, initialState)
+      }),
+      builder.addCase(logoutUser.fulfilled, state => {
+        Object.assign(state, initialState)
+      }),
+      builder.addCase(logoutUser.rejected, state => {
+        Object.assign(state, initialState)
+      })
   }
 })
 
-export const { logout, login } = auth.actions
 export default auth.reducer

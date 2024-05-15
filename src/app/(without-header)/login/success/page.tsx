@@ -4,8 +4,7 @@ import Image from "next/image"
 import { FaRegCircleCheck } from "react-icons/fa6"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { login } from "@/redux/features/authSlice"
-import { User } from "@/types"
+import { fetchUserData } from "@/redux/features/authSlice"
 import { useAppDispatch } from "@/hooks"
 import axios from "axios"
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_ENDPOINT
@@ -16,17 +15,8 @@ export default function Success() {
   const router = useRouter()
 
   useEffect(() => {
-    // Get session
-    ;(async () => {
-      try {
-        const result = await axios.get<User>("/api/user")
-        const user = result.data
-        dispatch(login(user))
-        router.push("/dashboard")
-      } catch (err: any) {
-        console.error(err.message)
-      }
-    })()
+    dispatch(fetchUserData())
+    router.push("/dashboard")
   }, [])
 
   return (

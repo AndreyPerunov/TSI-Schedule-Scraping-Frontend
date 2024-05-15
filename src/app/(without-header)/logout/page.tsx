@@ -4,13 +4,13 @@ import Image from "next/image"
 import { FaRegCircleCheck } from "react-icons/fa6"
 import { useEffect } from "react"
 import { useAppDispatch } from "@/hooks"
-import { logout } from "@/redux/features/authSlice"
+import { logoutUser } from "@/redux/features/authSlice"
 import { redirect } from "next/navigation"
 
 export default function Logout() {
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(logout())
+    dispatch(logoutUser())
     redirect("/")
   }, [])
   return (
