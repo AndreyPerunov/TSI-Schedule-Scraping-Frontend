@@ -3,34 +3,31 @@ import Link from "next/link"
 import Image from "next/image"
 import { FaRegCircleCheck } from "react-icons/fa6"
 import { useEffect } from "react"
-import { redirect, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { login } from "@/redux/features/authSlice"
 import { User } from "@/types"
 import { useAppDispatch } from "@/hooks"
+import axios from "axios"
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_ENDPOINT
+axios.defaults.withCredentials = true
 
 export default function Success() {
-  const searchParams = useSearchParams()
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
   useEffect(() => {
-    const userData = searchParams.get("userData")
-    const accessToken = searchParams.get("access_token")
-    const refreshToken = searchParams.get("refresh_token")
-
-    if (!userData || !accessToken || !refreshToken) {
-      redirect("/login/error")
-    }
-
-    const userDataObject = JSON.parse(userData as string)
-    const user: User = {
-      ...userDataObject,
-      accessToken: accessToken as string,
-      refreshToken: refreshToken as string
-    }
-
-    dispatch(login(user))
-    redirect("/dashboard")
-  }, [searchParams])
+    // Get session
+    ;(async () => {
+      try {
+        const result = await axios.get<User>("/api/user")
+        const user = result.data
+        dispatch(login(user))
+        router.push("/dashboard")
+      } catch (err: any) {
+        console.error(err.message)
+      }
+    })()
+  }, [])
 
   return (
     <main className="bg-gradient-to-r from-primary to-secondary h-full min-h-screen flex justify-center items-start">

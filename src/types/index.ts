@@ -27,11 +27,11 @@ type User = {
   googleEmail: string
   googleName: string
   googlePicture: string
-  role: string
+  role: "student" | "teacher" | ""
   group: string
   name: string
-  accessToken: string
-  refreshToken: string
+  iat: number
+  exp: number
 }
 
 type Lecture = {

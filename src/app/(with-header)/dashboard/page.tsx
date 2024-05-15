@@ -1,12 +1,14 @@
 "use client"
 
 import { Lecture } from "@/types"
-import { useEffect, useState } from "react"
-import axios from "axios"
+import { useState } from "react"
 import { useAppSelector } from "@/hooks"
 import { Heading, Button } from "@/ui"
 import { Wrapper } from "@/layouts"
-import { Calendar, LinkButton } from "@/components"
+import { Calendar } from "@/components"
+import axios from "axios"
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_ENDPOINT
 
 const COLORS: { [key: string]: { background: string; foreground: string } } = {
   "1": { background: "#a4bdfc", foreground: "#1d1d1d" },
@@ -29,7 +31,7 @@ export default function Dashboard() {
   const [lectures, setLectures] = useState<(Lecture & { color: string })[]>([] as (Lecture & { color: string })[])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-  const user = useAppSelector(state => state.authReducer)
+
   const scrapeHandler = () => {
     setError("")
     setLoading(true)
@@ -62,7 +64,6 @@ export default function Dashboard() {
 
     axios
       .post("/api/schedule", {
-        access_token: user.accessToken,
         days: 30,
         calendar_name: calendarName.trim(),
         lectures: lectures.map((lecture, index) => {
@@ -137,7 +138,6 @@ groups: ${lecture.groups.join(", ")}`,
                 <p className="font-semibold text-xl text-primary mt-2">{days} days</p>
                 <p className="font-semibold text-xl text-passive mt-4">Lectures:</p>
                 <p className="font-semibold text-xl text-primary mt-2">{lectures.length} lectures were scraped</p>
-                <p className="font-semibold text-xl text-passive mt-4">Calendar name:</p>
                 <p className="font-semibold text-xl text-passive mt-4">Step 2:</p>
                 <Button className="mt-2 px-9" onClick={copyHandler} loading={loading} disabled={calendarName.length < 1}>
                   Copy
