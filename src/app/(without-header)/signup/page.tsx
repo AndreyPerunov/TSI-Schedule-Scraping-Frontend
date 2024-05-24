@@ -162,10 +162,7 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
 
 function StepThree({ next, role, name, group }: { next?: () => void; role: "student" | "teacher"; name: string; group: string }) {
   const handleClick = () => {
-    window.location.href = getGoogleOAuthUrl({ role, group, name })
-    setTimeout(() => {
-      // next && next()
-    }, 1000)
+    window.location.href = getGoogleOAuthUrl({ role, group, name, from: "signup" })
   }
   return (
     <>

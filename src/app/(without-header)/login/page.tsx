@@ -2,10 +2,11 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/ui"
+import { getGoogleOAuthUrl } from "@/utils"
 
 export default function LogIn() {
   const handleClick = () => {
-    // TODO
+    window.location.href = getGoogleOAuthUrl({ from: "login" })
   }
 
   return (
