@@ -3,15 +3,21 @@ import { NextRequest, NextResponse } from "next/server"
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get("session")
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/user`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Cookie: `session=${session?.value}`
-    }
-  })
-  const user = await response.json()
+  let user
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/user`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Cookie: `session=${session?.value}`
+      }
+    })
+    user = await response.json()
+  } catch (error) {
+    console.error(error)
+    return NextResponse.redirect(new URL("/", request.url))
+  }
   const isAuthenticated = user.googleEmail ? true : false
 
   // Protected routes for authenticated users
