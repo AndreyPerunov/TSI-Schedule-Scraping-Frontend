@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get("session")
+  console.log("session", session?.value)
 
   let user
   try {
@@ -18,7 +19,10 @@ export async function middleware(request: NextRequest) {
     console.error(error)
     return NextResponse.redirect(new URL("/", request.url))
   }
+  console.log({ user })
+
   const isAuthenticated = user.googleEmail ? true : false
+  console.log({ isAuthenticated })
 
   // Protected routes for authenticated users
   const protectedRoutesForAuthenticated = ["/login", "/signup", "/login/error"]
