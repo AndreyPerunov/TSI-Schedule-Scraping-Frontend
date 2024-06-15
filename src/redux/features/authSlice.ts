@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, Slice } from "@reduxjs/toolkit"
 import axios from "axios"
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_ENDPOINT
 axios.defaults.withCredentials = true
@@ -44,7 +44,7 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   }
 })
 
-export const auth = createSlice({
+export const auth: Slice<AuthState> = createSlice({
   name: "auth",
   initialState,
   reducers: {},
