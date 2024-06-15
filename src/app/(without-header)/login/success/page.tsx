@@ -16,7 +16,10 @@ export default function Success() {
 
   useEffect(() => {
     dispatch(fetchUserData())
-    router.push("/dashboard")
+
+    setTimeout(() => {
+      router.push("/dashboard")
+    }, 2000)
   }, [])
 
   return (
