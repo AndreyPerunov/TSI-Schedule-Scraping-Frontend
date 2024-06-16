@@ -14,15 +14,13 @@ export default function Privacy() {
         <p className="text-passive mt-8">Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent to your browser from the website that you visit and are stored on your computer hard drive.</p>
         <p className="text-passive mt-8">This application uses cookies, if you want to enjoy this website you shall agree to that. It simply does not work without. We use cookies to create auth sessions. If you continue to use this site, you consent to our use of cookies.</p>
         <Heading className="text-center mt-20">Service Providers</Heading>
-        <p className="text-passive mt-8">
-          We may employ third-party companies and individuals due to the following reasons:
-          <ul className="list-disc list-inside mt-2">
-            <li className="ml-5">To facilitate our Service</li>
-            <li className="ml-5">To provide the Service on our behalf</li>
-            <li className="ml-5">To perform Service-related services</li>
-          </ul>
-          We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.
-        </p>
+        <p className="text-passive mt-8">We may employ third-party companies and individuals due to the following reasons:</p>
+        <ul className="text-passive list-disc list-inside mt-2 divide-y-8 divide-transparent">
+          <li className="ml-5">To facilitate our Service</li>
+          <li className="ml-5">To provide the Service on our behalf</li>
+          <li className="ml-5">To perform Service-related services</li>
+        </ul>
+        <p className="text-passive">We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
         <Heading className="text-center mt-20">Links to Other Sites</Heading>
         <p className="text-passive mt-8">Our Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by us. Therefore, we strongly advise you to review the Privacy Policy of these websites. We have no control over, and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.</p>
       </article>
