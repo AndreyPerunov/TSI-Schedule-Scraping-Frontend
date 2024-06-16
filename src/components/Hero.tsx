@@ -7,8 +7,8 @@ const Hero: FC = () => {
     <div className="bg-gradient-to-r from-primary to-secondary m-0 shadow-xl shadow-slate-400">
       <Wrapper className="pt-24 pb-32">
         <div className="flex justify-between flex-col-reverse md:flex-row">
-          <div className="md:w-3/4">
-            <h1 className="m-0 text-white text-5xl md:text-6xl font-semibold text-center md:text-start">TSI Schedule Scrapper</h1>
+          <div className="md:w-3/5">
+            <h1 className="m-0 text-white text-5xl md:text-6xl font-semibold text-center md:text-start">TSI Schedule Scraper</h1>
             <p className="text-white text-xl mt-4 text-center md:text-start md:w-3/4">Easily copy your university schedule to Google Calendar.</p>
             <HeroButton className="mt-7 text-center md:text-start" />
           </div>
