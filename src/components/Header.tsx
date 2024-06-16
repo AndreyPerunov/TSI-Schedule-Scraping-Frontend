@@ -7,7 +7,6 @@ import type { ILink } from "../types"
 const links: ILink[] = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Reviews", href: "/reviews" },
   { name: "Author", href: "https://www.andreyperunov.com/", external: true }
 ]
 
