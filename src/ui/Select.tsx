@@ -3,6 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp, IoMdCheckmark } from "react-icons/io"
 import { useEffect, useState, useRef } from "react"
 
 export default function Select({ list, selected, select, className, ...props }: { list: string[]; selected: string; select: (value: string) => void; className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null)
   const [expanded, setExpanded] = useState(false)
 
   function handleSelectKeyPress(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -11,9 +12,17 @@ export default function Select({ list, selected, select, className, ...props }: 
     }
   }
 
+  function handleBlur() {
+    setTimeout(() => {
+      if (containerRef.current && !containerRef.current.contains(document.activeElement)) {
+        setExpanded(false)
+      }
+    }, 0)
+  }
+
   return (
     <>
-      <div className={`${className} relative px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between ${expanded ? "rounded-t-lg" : "rounded-lg"}`} {...props} onClick={() => setExpanded(prev => !prev)} tabIndex={0} onKeyDown={handleSelectKeyPress}>
+      <div className={`${className} relative px-6 py-3.5 font-semibold border-2 border-primary text-primary flex items-center min-w-36 select-none cursor-pointer justify-between ${expanded ? "rounded-t-lg" : "rounded-lg"}`} {...props} onClick={() => setExpanded(prev => !prev)} tabIndex={0} onKeyDown={handleSelectKeyPress} onBlur={handleBlur} ref={containerRef}>
         <span>{selected}</span> {expanded ? <IoIosArrowDown className="ml-5" /> : <IoIosArrowUp className="ml-5" />}
         {expanded && <ListBox list={list} selected={selected} select={select} />}
       </div>
