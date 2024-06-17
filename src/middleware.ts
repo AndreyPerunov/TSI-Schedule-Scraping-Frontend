@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Protected routes for unauthenticated users
-  const protectedRoutesForUnauthenticated = ["/dashboard"]
+  const protectedRoutesForUnauthenticated = ["/dashboard", "/profile", "/profile/update", "/profile/delete"]
   if (protectedRoutesForUnauthenticated.includes(request.nextUrl.pathname) && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
