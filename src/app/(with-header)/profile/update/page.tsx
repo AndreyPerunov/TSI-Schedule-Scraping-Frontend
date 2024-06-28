@@ -19,7 +19,7 @@ export default function UpdateProfile() {
   const [ready, setReady] = useState(false)
 
   // Roles Selector
-  const roles = ["student", "teacher"]
+  const roles = ["student", "lecturer"]
   const [newRole, setNewRole] = useState("")
 
   // Lecturers Selector
@@ -35,7 +35,7 @@ export default function UpdateProfile() {
   }, [role])
 
   useEffect(() => {
-    if (role === "teacher") {
+    if (role === "lecturer") {
       setNewName(name)
     }
   }, [name])
@@ -49,11 +49,11 @@ export default function UpdateProfile() {
   useEffect(() => {
     const validLecturer = lecturers && Boolean(lecturers.find(lecturer => lecturer.lecturerName === newName))
     const validGroup = groups && Boolean(groups.find(group => group.groupName === newGroup))
-    if (role === newRole && role === "teacher" && name === newName) {
+    if (role === newRole && role === "lecturer" && name === newName) {
       setReady(false)
     } else if (role === newRole && role === "student" && group === newGroup) {
       setReady(false)
-    } else if (newRole === "teacher" && validLecturer) {
+    } else if (newRole === "lecturer" && validLecturer) {
       setReady(true)
     } else if (newRole === "student" && validGroup) {
       setReady(true)
@@ -73,7 +73,7 @@ export default function UpdateProfile() {
       return
     }
 
-    if (newRole === "teacher" && !newName) {
+    if (newRole === "lecturer" && !newName) {
       setError("Please select a valid lecturer.")
       setLoading(false)
       return
@@ -85,7 +85,7 @@ export default function UpdateProfile() {
       return
     }
 
-    if (newRole === "teacher") {
+    if (newRole === "lecturer") {
       axios
         .put("/api/user", { role: newRole, name: newName })
         .then(() => {

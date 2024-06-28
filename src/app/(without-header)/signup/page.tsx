@@ -8,7 +8,7 @@ import { getGoogleOAuthUrl } from "@/utils"
 import { Group, Lecturer } from "@/types"
 
 type LoginData = {
-  role: "student" | "teacher"
+  role: "student" | "lecturer"
   group: string
   name: string
 }
@@ -65,15 +65,15 @@ function Preview({ next }: { next?: () => void }) {
   )
 }
 
-function StepOne({ next, updateFields }: { next?: () => void; updateFields: (fields: { role: "student" | "teacher" }) => void }) {
+function StepOne({ next, updateFields }: { next?: () => void; updateFields: (fields: { role: "student" | "lecturer" }) => void }) {
   return (
     <>
-      <Image src="/student-teacher.png" width={300} height={300} priority={true} alt="Picture: Student or Teacher?" className="w-56" />
+      <Image src="/student-teacher.png" width={300} height={300} priority={true} alt="Picture: Student or Lecturer?" className="w-56" />
       <h1 className="mt-10 mb-0 text-2xl font-bold text-primary">Who are you?</h1>
       <Switch
-        options={["student", "teacher"]}
+        options={["student", "lecturer"]}
         onChange={option => {
-          updateFields({ role: option as "student" | "teacher" })
+          updateFields({ role: option as "student" | "lecturer" })
         }}
       />
       {next && (
@@ -85,7 +85,7 @@ function StepOne({ next, updateFields }: { next?: () => void; updateFields: (fie
   )
 }
 
-function StepTwo({ next, role, updateFields }: { next?: () => void; role: "student" | "teacher"; updateFields: (fields: { name?: string; group?: string }) => void }) {
+function StepTwo({ next, role, updateFields }: { next?: () => void; role: "student" | "lecturer"; updateFields: (fields: { name?: string; group?: string }) => void }) {
   if (role.toLowerCase() === "student") {
     return (
       <IfStudent
@@ -95,7 +95,7 @@ function StepTwo({ next, role, updateFields }: { next?: () => void; role: "stude
         }}
       />
     )
-  } else if (role.toLowerCase() === "teacher") {
+  } else if (role.toLowerCase() === "lecturer") {
     return (
       <IfTeacher
         next={next}
@@ -160,7 +160,7 @@ function IfStudent({ next, updateGroup }: { next?: () => void; updateGroup: (gro
   )
 }
 
-function StepThree({ next, role, name, group }: { next?: () => void; role: "student" | "teacher"; name: string; group: string }) {
+function StepThree({ next, role, name, group }: { next?: () => void; role: "student" | "lecturer"; name: string; group: string }) {
   const handleClick = () => {
     window.location.href = getGoogleOAuthUrl({ role, group, name, from: "signup" })
   }

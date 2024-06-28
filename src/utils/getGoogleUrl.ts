@@ -1,5 +1,5 @@
 type LoginData = {
-  role: "student" | "teacher"
+  role: "student" | "lecturer"
   group: string
   name: string
 }

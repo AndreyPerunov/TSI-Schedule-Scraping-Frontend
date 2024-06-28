@@ -8,7 +8,7 @@ type AuthState = {
   googleEmail: string
   googleName: string
   googlePicture: string
-  role: "student" | "teacher" | ""
+  role: "student" | "lecturer" | ""
   group: string
   name: string
   iat: number
